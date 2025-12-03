@@ -2,7 +2,7 @@
 
 **SayHungry** is an intelligent voice-enabled AI agent that allows users to book restaurant tables through natural conversation. Built with the **MERN Stack** and **LiveKit**, it features real-time voice interaction, weather-based seating suggestions, and multi-language support (English & Hindi).
 
-![Dashboard Screenshot](https://via.placeholder.com/800x400?text=SayHungry+Dashboard+Preview)
+![Dashboard Screenshot](./assets/dashboard.png)
 
 ## 🚀 Features
 
