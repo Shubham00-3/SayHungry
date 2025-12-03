@@ -10,8 +10,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@roamhq/wrtc": "^0.9.1",
+    "axios": "^1.13.2",
     "dotenv": "^17.2.3",
+    "livekit-client": "^2.16.0",
     "livekit-server-sdk": "^2.14.2",
-    "openai": "^6.9.1"
+    "node-fetch": "^3.3.2",
+    "openai": "^6.9.1",
+    "ws": "^8.18.3"
   }
 }
