@@ -6,6 +6,9 @@ const sendEmail = async (to, subject, text) => {
     console.log(`[Notification] Attempting to send email to ${to}`);
 
     // Check for credentials
+    console.log(`[Debug] EMAIL_USER present: ${!!process.env.EMAIL_USER}`);
+    console.log(`[Debug] EMAIL_PASS present: ${!!process.env.EMAIL_PASS}`);
+
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
         console.warn('[Notification] Missing EMAIL_USER or EMAIL_PASS. Logging only.');
         console.log(`[MOCK EMAIL] To: ${to}, Subject: ${subject}, Body: ${text}`);
@@ -37,6 +40,10 @@ const sendSMS = async (to, text) => {
     console.log(`[Notification] Attempting to send SMS to ${to}`);
 
     // Check for credentials
+    console.log(`[Debug] TWILIO_SID present: ${!!process.env.TWILIO_ACCOUNT_SID}`);
+    console.log(`[Debug] TWILIO_TOKEN present: ${!!process.env.TWILIO_AUTH_TOKEN}`);
+    console.log(`[Debug] TWILIO_PHONE present: ${!!process.env.TWILIO_PHONE_NUMBER}`);
+
     if (!process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN || !process.env.TWILIO_PHONE_NUMBER) {
         console.warn('[Notification] Missing Twilio credentials. Logging only.');
         console.log(`[MOCK SMS] To: ${to}, Body: ${text}`);

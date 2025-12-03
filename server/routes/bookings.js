@@ -95,8 +95,16 @@ router.post('/', async (req, res) => {
         // Send Notifications (Bonus Feature)
         try {
             const notificationService = require('../services/notification');
-            notificationService.sendEmail('user@example.com', 'Booking Confirmation', `Your booking for ${customerName} is confirmed!`);
-            notificationService.sendSMS('+1234567890', `Booking Confirmed: ${customerName} at ${bookingTime}`);
+            // Use the admin email/phone from env for the demo, or the customer's if we had it
+            const recipientEmail = process.env.EMAIL_USER;
+            const recipientPhone = process.env.ADMIN_PHONE; // Send to personal number
+
+            if (recipientEmail) {
+                notificationService.sendEmail(recipientEmail, 'Booking Confirmation', `Your booking for ${customerName} is confirmed!`);
+            }
+            if (recipientPhone) {
+                notificationService.sendSMS(recipientPhone, `Booking Confirmed: ${customerName} at ${bookingTime}`);
+            }
         } catch (e) {
             console.error('Notification Error:', e);
         }

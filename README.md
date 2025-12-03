@@ -1,114 +1,149 @@
-# SayHungry - Voice-Enabled Restaurant Booking Agent 🎙️🍽️
+# SayHungry - AI Voice Restaurant Booking Agent 🎙️🍽️
 
-A full-stack AI Voice Agent that helps users book restaurant tables through natural conversation. Built with the **MERN Stack** and **LiveKit**.
+**SayHungry** is an intelligent voice-enabled AI agent that allows users to book restaurant tables through natural conversation. Built with the **MERN Stack** and **LiveKit**, it features real-time voice interaction, weather-based seating suggestions, and multi-language support (English & Hindi).
+
+![Dashboard Screenshot](https://via.placeholder.com/800x400?text=SayHungry+Dashboard+Preview)
 
 ## 🚀 Features
 
-### Core Requirements
-- **Voice Interaction**: Real-time Speech-to-Text (STT) and Text-to-Speech (TTS) using LiveKit and OpenAI.
-- **Natural Conversation**: Powered by **GPT-4o-mini**, capable of handling complex queries and maintaining context.
-- **Real-time Weather**: Automatically fetches weather for the booking date and suggests seating (Indoor vs. Outdoor).
-- **Database Persistence**: Stores bookings in **MongoDB** (with automatic In-Memory Fallback if DB is down).
-- **REST API**: Full CRUD endpoints for managing bookings.
+### Core Requirements (Completed ✅)
+*   **Voice Interaction:** Real-time Speech-to-Text (STT) and Text-to-Speech (TTS) using **LiveKit** and **OpenAI**.
+*   **Natural Conversation:** Handles booking details (Name, Guests, Date, Time, Cuisine) naturally.
+*   **Backend API:** robust Node.js/Express REST API for managing bookings.
+*   **Database:** MongoDB (Atlas) integration for persistent storage.
+*   **Weather Integration:** Automatically fetches weather for the booking date (via OpenWeatherMap) and suggests **Indoor vs. Outdoor** seating.
 
-### 🌟 Bonus Features (All Implemented)
-1.  **Multi-language Support**: Seamlessly handles **English** and **Hindi** (including Hinglish).
-2.  **Smart Conflict Detection**: Prevents double bookings for the same time slot.
-3.  **Notifications**:
-    - **SMS**: Sends confirmation via Twilio.
-    - **Email**: Sends confirmation via Nodemailer (Gmail).
-4.  **Admin Dashboard**: Real-time view of all bookings at `/dashboard`.
-5.  **Robust Error Handling**: Auto-restarts voice recognition, handles API failures gracefully.
+### Bonus Features (All Implemented 🌟)
+1.  **Natural Language Processing:** Powered by **GPT-4o-mini** for intelligent intent understanding.
+2.  **Multi-language Support:** Fully supports **Hindi** and **English** voice commands with code-switching.
+3.  **Calendar Integration:** Visual availability checker in the dashboard to prevent double bookings.
+4.  **Notifications:** Sends real **SMS (Twilio)** and **Email (Nodemailer)** confirmations upon successful booking.
+5.  **Admin Dashboard:**
+    *   Real-time booking list.
+    *   **Analytics:** Peak hours, popular cuisines, total bookings.
+    *   **Export:** Download booking data as CSV.
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 14, Tailwind CSS, LiveKit Client SDK
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (Atlas Cloud + Local Fallback)
-- **AI/ML**: OpenAI GPT-4o-mini (LLM), LiveKit Agents (Voice Pipeline)
-- **External APIs**: OpenWeatherMap, Twilio
+*   **Frontend:** Next.js 14, Tailwind CSS, Lucide React
+*   **Backend:** Node.js, Express.js
+*   **Database:** MongoDB Atlas
+*   **AI & Voice:** LiveKit Agents, OpenAI (GPT-4o-mini)
+*   **Services:** Twilio (SMS), Nodemailer (Email), OpenWeatherMap (Weather)
+
+---
 
 ## 📂 Project Structure
 
-```
+```bash
 SayHungry/
-├── agent/              # AI Voice Agent Logic
-│   ├── agent.js        # Main agent entry point (LiveKit worker)
-│   └── tools.js        # Tools for Weather, DB checks, Booking
-├── server/             # Backend API
+├── agent/              # AI Voice Agent (LiveKit + OpenAI)
+│   ├── agent.js        # Main agent logic & prompt
+│   └── tools.js        # Tools for Weather & Booking API
+├── server/             # Backend API (Express + MongoDB)
 │   ├── models/         # Mongoose Schemas
-│   ├── routes/         # API Routes (bookings, weather)
-│   └── services/       # Notification services (Email, SMS)
-├── web/                # Frontend Application
-│   ├── app/            # Next.js App Router
-│   └── components/     # React Components
-└── README.md           # Documentation
+│   ├── routes/         # API Routes (Bookings, Weather)
+│   └── services/       # Notification Services (Email/SMS)
+└── web/                # Frontend Dashboard (Next.js)
+    ├── app/dashboard/  # Admin Dashboard & Analytics
+    └── app/page.tsx    # Voice Interface
 ```
 
-## ⚡ Setup Instructions
+---
+
+## ⚙️ Setup Instructions
 
 ### 1. Prerequisites
-- Node.js (v18+)
-- MongoDB (Optional - system falls back to memory if missing)
+*   Node.js (v18+)
+*   MongoDB Atlas URI
+*   LiveKit Cloud Project
+*   OpenAI API Key
+*   Twilio Account (for SMS)
+*   Gmail App Password (for Email)
 
-### 2. Installation
-Run these commands in separate terminals:
-
-```bash
-# Terminal 1: Install Server Deps
-cd server && npm install
-
-# Terminal 2: Install Agent Deps
-cd agent && npm install
-
-# Terminal 3: Install Web Deps
-cd web && npm install
-```
-
-### 3. Environment Variables
-Create a `.env` file in the root directory with the following keys:
+### 2. Environment Variables
+Create a `.env` file in the root directory:
 
 ```env
-# Database
-MONGODB_URI=mongodb+srv://... (or your local URI)
+# MongoDB
+MONGODB_URI=your_mongodb_connection_string
 
 # Server
 PORT=3001
 SERVER_URL=http://localhost:3001
 
-# APIs
-OPENWEATHER_API_KEY=...
-OPENAI_API_KEY=...
+# Weather (OpenWeatherMap)
+OPENWEATHER_API_KEY=your_weather_api_key
 
-# LiveKit (Voice)
-LIVEKIT_URL=...
-LIVEKIT_API_KEY=...
-LIVEKIT_API_SECRET=...
+# LiveKit
+LIVEKIT_URL=your_livekit_url
+LIVEKIT_API_KEY=your_livekit_key
+LIVEKIT_API_SECRET=your_livekit_secret
 
-# Notifications (Optional)
-EMAIL_USER=...
-EMAIL_PASS=...
-TWILIO_ACCOUNT_SID=...
-TWILIO_AUTH_TOKEN=...
-TWILIO_PHONE_NUMBER=...
+# OpenAI
+OPENAI_API_KEY=your_openai_key
+
+# Notifications
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_gmail_app_password
+TWILIO_ACCOUNT_SID=your_twilio_sid
+TWILIO_AUTH_TOKEN=your_twilio_token
+TWILIO_PHONE_NUMBER=your_twilio_phone
+ADMIN_PHONE=your_personal_phone_number
 ```
 
-### 4. Running the App
-You need to run all three services simultaneously:
+### 3. Installation & Running
 
-1.  **Start Backend**: `cd server && node index.js`
-2.  **Start Agent**: `cd agent && node agent.js`
-3.  **Start Frontend**: `cd web && npm run dev`
+**1. Backend Server**
+```bash
+cd server
+npm install
+node index.js
+# Runs on http://localhost:3001
+```
 
-### 5. Usage
-- **User Interface**: Go to [http://localhost:3000](http://localhost:3000) and click "Start" to talk.
-- **Admin Dashboard**: Go to [http://localhost:3000/dashboard](http://localhost:3000/dashboard) to view bookings.
+**2. Voice Agent**
+```bash
+cd agent
+npm install
+node agent.js
+# Connects to LiveKit room
+```
 
-## 🧪 Testing
-- **Voice**: Try saying "Book a table for 3 people tomorrow at 7 PM".
-- **Hindi**: Try saying "Kal shaam 7 baje 2 logon ke liye table book karo".
-- **Weather**: Pick a rainy day to see if it suggests indoor seating.
-- **Conflict**: Try booking the same slot twice.
+**3. Frontend Client**
+```bash
+cd web
+npm install
+npm run dev
+# Opens at http://localhost:3000
+```
 
 ---
-*Built for the Vaiu AI Software Developer Internship Assignment.*
+
+## 🧪 API Endpoints
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/bookings` | Get all bookings |
+| `POST` | `/api/bookings` | Create a new booking |
+| `DELETE` | `/api/bookings/:id` | Cancel a booking |
+| `GET` | `/api/weather` | Get weather forecast |
+
+---
+
+## 📸 Usage
+
+1.  Open the **Web Client** (`localhost:3000`).
+2.  Click **"Start Talking"**.
+3.  Say: *"I want to book a table for 2 people tomorrow at 7 PM."*
+4.  The agent will check the weather ☀️ and suggest seating.
+5.  Confirm the details.
+6.  Check your **Phone/Email** for the confirmation! 📱
+7.  Visit the **Dashboard** (`localhost:3000/dashboard`) to see analytics.
+
+---
+
+**Submitted by:** Shubham Gangwar
+**GitHub:** [https://github.com/Shubham00-3/SayHungry](https://github.com/Shubham00-3/SayHungry)

@@ -146,6 +146,7 @@ async function processWithAI(userText, participantId) {
                         bookingTime: { type: 'string' },
                         cuisinePreference: { type: 'string' },
                         specialRequests: { type: 'string' },
+                        weatherInfo: { type: 'object' },
                         seatingPreference: { type: 'string' },
                         language: { type: 'string' }
                     },

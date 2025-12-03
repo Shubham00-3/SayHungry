@@ -48,6 +48,10 @@ const tools = {
 
     async createBooking(details) {
         console.log('Creating booking:', details);
+        // Normalize seating preference to lowercase to match Mongoose enum
+        if (details.seatingPreference) {
+            details.seatingPreference = details.seatingPreference.toLowerCase();
+        }
         try {
             const response = await axios.post(`${SERVER_URL}/api/bookings`, details);
             return { success: true, booking: response.data };
