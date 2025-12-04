@@ -1,7 +1,8 @@
 const axios = require('axios');
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: '../../.env' });
 
-const WEATHER_API_KEY = process.env.OPENWEATHERMAP_API_KEY;
+const WEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
+console.log('[Weather Service] Loaded API Key:', WEATHER_API_KEY ? 'Yes' : 'No');
 
 const getWeather = async (location, date) => {
     console.log(`[Weather Service] Fetching weather for ${location} on ${date}`);

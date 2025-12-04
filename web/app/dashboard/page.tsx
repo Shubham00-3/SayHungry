@@ -107,6 +107,29 @@ export default function Dashboard() {
         return slots;
     };
 
+
+
+    const handleDelete = async (bookingId: string) => {
+        if (!confirm('Are you sure you want to delete this booking?')) return;
+
+        try {
+            const response = await fetch(`http://localhost:3001/api/bookings/${bookingId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                const updatedBookings = bookings.filter(b => b.bookingId !== bookingId);
+                setBookings(updatedBookings);
+                calculateStats(updatedBookings);
+            } else {
+                alert('Failed to delete booking');
+            }
+        } catch (error) {
+            console.error('Error deleting booking:', error);
+            alert('Error deleting booking');
+        }
+    };
+
     return (
         <div className="min-h-screen bg-gray-100 p-8 font-sans">
             <div className="max-w-7xl mx-auto space-y-8">
@@ -147,6 +170,7 @@ export default function Dashboard() {
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
@@ -159,6 +183,14 @@ export default function Dashboard() {
                                                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${booking.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                                                     {booking.status}
                                                 </span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <button
+                                                    onClick={() => handleDelete(booking.bookingId)}
+                                                    className="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 px-3 py-1 rounded-md transition"
+                                                >
+                                                    Delete
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
